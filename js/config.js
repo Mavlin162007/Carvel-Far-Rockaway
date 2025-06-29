@@ -40,16 +40,15 @@ async function loadConfig() {
     }
   } catch (error) {
     console.error("❌ 從後端載入配置失敗:", error.message);
-    console.warn("⚠️ 使用備用方案：直接設置 API 金鑰");
+    console.error(
+      "⚠️ 請確保後端伺服器正在運行，且 .env 文件中包含正確的 GEMINI_API_KEY"
+    );
 
-    // 備用方案：直接設置（僅用於開發）
-    // ⚠️ 注意：這會在瀏覽器中暴露 API 金鑰
-    const directApiKey = "AIzaSyBAV5VaAaDFYJKtZuQ_0N1pKFMDKnSPknc"; // 從.env讀取的值
-    window.process.env.GEMINI_API_KEY = directApiKey;
-    window.GEMINI_API_KEY = directApiKey;
+    // 設置錯誤標記
+    window.process.env.GEMINI_API_KEY = "error";
+    window.GEMINI_API_KEY = "error";
 
-    console.log("⚠️ 使用直接設置的 API 金鑰");
-    return { GEMINI_API_KEY: directApiKey };
+    throw error; // 重新拋出錯誤，不使用備用方案
   }
 }
 
