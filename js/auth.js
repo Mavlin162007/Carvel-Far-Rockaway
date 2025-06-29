@@ -1,143 +1,217 @@
 class AuthManager {
-    constructor() {
-        this.auth = firebase.auth();
-        this.initializeAuth();
+  constructor() {
+    this.initializeAuth();
+    this.checkAuthState();
+  }
+
+  initializeAuth() {
+    // 登入表單處理
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+      loginForm.addEventListener("submit", (e) => this.handleLogin(e));
     }
 
-    initializeAuth() {
-        // Login form handling
-        const loginForm = document.getElementById('loginForm');
-        if (loginForm) {
-            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
-        }
-
-        // Register form handling
-        const registerForm = document.getElementById('registerForm');
-        if (registerForm) {
-            registerForm.addEventListener('submit', (e) => this.handleRegister(e));
-        }
-
-        // Social login buttons
-        const googleBtn = document.querySelector('.social-button.google');
-        const facebookBtn = document.querySelector('.social-button.facebook');
-
-        if (googleBtn) {
-            googleBtn.addEventListener('click', () => this.handleGoogleSignIn());
-        }
-        if (facebookBtn) {
-            facebookBtn.addEventListener('click', () => this.handleFacebookSignIn());
-        }
-
-        // Check auth state
-        this.auth.onAuthStateChanged((user) => {
-            if (user) {
-                this.handleAuthStateChange(user);
-            }
-        });
+    // 註冊表單處理
+    const registerForm = document.getElementById("registerForm");
+    if (registerForm) {
+      registerForm.addEventListener("submit", (e) => this.handleRegister(e));
     }
 
-    async handleLogin(e) {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    // 社交登入按鈕（簡化版）
+    const googleBtn = document.querySelector(".social-button.google");
+    const facebookBtn = document.querySelector(".social-button.facebook");
 
-        try {
-            await this.auth.signInWithEmailAndPassword(email, password);
-            window.location.href = 'index.html';
-        } catch (error) {
-            this.showError(error.message);
-        }
+    if (googleBtn) {
+      googleBtn.addEventListener("click", () =>
+        this.handleSocialSignIn("google")
+      );
+    }
+    if (facebookBtn) {
+      facebookBtn.addEventListener("click", () =>
+        this.handleSocialSignIn("facebook")
+      );
     }
 
-    async handleRegister(e) {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const fullName = document.getElementById('fullName').value;
+    // 登出功能
+    document.addEventListener("click", (e) => {
+      if (e.target.matches(".auth-signout")) {
+        this.signOut();
+      }
+    });
+  }
 
-        if (password !== confirmPassword) {
-            this.showError('Passwords do not match');
-            return;
-        }
+  async handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-        try {
-            const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
-            await userCredential.user.updateProfile({
-                displayName: fullName
-            });
-            window.location.href = 'index.html';
-        } catch (error) {
-            this.showError(error.message);
-        }
-    }
+    try {
+      // 簡化的登入驗證（在實際應用中應該與後端API驗證）
+      if (email && password.length >= 6) {
+        const user = {
+          email: email,
+          displayName: email.split("@")[0],
+          loginTime: new Date().toISOString(),
+        };
 
-    async handleGoogleSignIn() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        try {
-            await this.auth.signInWithPopup(provider);
-            window.location.href = 'index.html';
-        } catch (error) {
-            this.showError(error.message);
-        }
-    }
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        this.showSuccess("登入成功！");
 
-    async handleFacebookSignIn() {
-        const provider = new firebase.auth.FacebookAuthProvider();
-        try {
-            await this.auth.signInWithPopup(provider);
-            window.location.href = 'index.html';
-        } catch (error) {
-            this.showError(error.message);
-        }
-    }
-
-    handleAuthStateChange(user) {
-        // Update UI based on auth state
-        const authButtons = document.querySelectorAll('.auth-button');
-        if (authButtons) {
-            authButtons.forEach(button => {
-                button.style.display = user ? 'none' : 'block';
-            });
-        }
-
-        // Update user profile if available
-        const userProfile = document.querySelector('.user-profile');
-        if (userProfile && user) {
-            userProfile.innerHTML = `
-                <img src="${user.photoURL || 'images/default-avatar.png'}" alt="Profile" class="profile-image">
-                <span>${user.displayName || user.email}</span>
-            `;
-        }
-    }
-
-    showError(message) {
-        // Create error element if it doesn't exist
-        let errorElement = document.querySelector('.auth-error');
-        if (!errorElement) {
-            errorElement = document.createElement('div');
-            errorElement.className = 'auth-error';
-            document.querySelector('.auth-form').prepend(errorElement);
-        }
-
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-
-        // Hide error after 5 seconds
         setTimeout(() => {
-            errorElement.style.display = 'none';
-        }, 5000);
+          window.location.href = "index.html";
+        }, 1000);
+      } else {
+        throw new Error("請輸入有效的電子郵件和密碼（至少6位字符）");
+      }
+    } catch (error) {
+      this.showError(error.message);
+    }
+  }
+
+  async handleRegister(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const fullName = document.getElementById("fullName").value;
+
+    if (password !== confirmPassword) {
+      this.showError("密碼不匹配");
+      return;
     }
 
-    async signOut() {
-        try {
-            await this.auth.signOut();
-            window.location.href = 'login.html';
-        } catch (error) {
-            this.showError(error.message);
-        }
+    if (password.length < 6) {
+      this.showError("密碼至少需要6位字符");
+      return;
     }
+
+    try {
+      const user = {
+        email: email,
+        displayName: fullName || email.split("@")[0],
+        registerTime: new Date().toISOString(),
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      this.showSuccess("註冊成功！");
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    } catch (error) {
+      this.showError(error.message);
+    }
+  }
+
+  handleSocialSignIn(provider) {
+    try {
+      // 模擬社交登入
+      const user = {
+        email: `user@${provider}.com`,
+        displayName: `${
+          provider.charAt(0).toUpperCase() + provider.slice(1)
+        } User`,
+        provider: provider,
+        loginTime: new Date().toISOString(),
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      this.showSuccess(`${provider} 登入成功！`);
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    } catch (error) {
+      this.showError(`${provider} 登入失敗：${error.message}`);
+    }
+  }
+
+  checkAuthState() {
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser) {
+      const user = JSON.parse(currentUser);
+      this.handleAuthStateChange(user);
+    }
+  }
+
+  handleAuthStateChange(user) {
+    // 根據認證狀態更新UI
+    const authButtons = document.querySelectorAll(
+      ".auth-button.login, .auth-button.register"
+    );
+    const userProfile = document.querySelector(".user-profile");
+
+    if (authButtons) {
+      authButtons.forEach((button) => {
+        button.style.display = user ? "none" : "inline-block";
+      });
+    }
+
+    // 更新用戶資料（如果可用）
+    if (userProfile && user) {
+      userProfile.style.display = "flex";
+      userProfile.innerHTML = `
+                <div class="profile-info">
+                    <span class="user-name">${user.displayName}</span>
+                    <span class="user-email">${user.email}</span>
+                </div>
+                <button class="auth-signout">登出</button>
+            `;
+    }
+  }
+
+  showError(message) {
+    this.showMessage(message, "error");
+  }
+
+  showSuccess(message) {
+    this.showMessage(message, "success");
+  }
+
+  showMessage(message, type) {
+    // 創建或更新訊息元素
+    let messageElement = document.querySelector(".auth-message");
+    if (!messageElement) {
+      messageElement = document.createElement("div");
+      messageElement.className = "auth-message";
+      const form = document.querySelector(".auth-form");
+      if (form) {
+        form.prepend(messageElement);
+      }
+    }
+
+    messageElement.textContent = message;
+    messageElement.className = `auth-message ${type}`;
+    messageElement.style.display = "block";
+
+    // 5秒後隱藏訊息
+    setTimeout(() => {
+      messageElement.style.display = "none";
+    }, 5000);
+  }
+
+  async signOut() {
+    try {
+      localStorage.removeItem("currentUser");
+      this.showSuccess("已成功登出");
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1000);
+    } catch (error) {
+      this.showError(error.message);
+    }
+  }
+
+  getCurrentUser() {
+    const currentUser = localStorage.getItem("currentUser");
+    return currentUser ? JSON.parse(currentUser) : null;
+  }
+
+  isAuthenticated() {
+    return !!this.getCurrentUser();
+  }
 }
 
-// Initialize authentication
-const authManager = new AuthManager(); 
+// 初始化認證管理器
+const authManager = new AuthManager();

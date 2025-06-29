@@ -1,234 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Carvel Far Rockaway - Personal Website">
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Carvel Far Rockaway - 個人網站" />
     <title>Carvel Far Rockaway</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header class="header">
-        <nav class="nav-container">
-            <div class="logo">CFR</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#chat">AI Chat</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="auth-nav">
-                    <div class="user-profile" style="display: none;">
-                        <!-- User profile will be inserted here when logged in -->
-                    </div>
-                    <div class="auth-buttons">
-                        <a href="login.html" class="auth-button login">Login</a>
-                        <a href="register.html" class="auth-button register">Register</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+      <nav class="nav-container">
+        <div class="logo">CFR</div>
+        <ul class="nav-links">
+          <li><a href="#home">首頁</a></li>
+          <li><a href="#chat">AI 聊天</a></li>
+          <li><a href="#about">關於</a></li>
+          <li><a href="#projects">專案</a></li>
+          <li><a href="#contact">聯繫</a></li>
+          <li class="auth-nav">
+            <div class="user-profile" style="display: none">
+              <!-- 登入後用戶資料將在此顯示 -->
+            </div>
+            <div class="auth-buttons">
+              <a href="login.html" class="auth-button login">登入</a>
+              <a href="register.html" class="auth-button register">註冊</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <section id="home" class="hero-section">
-            <div class="hero-content">
-                <h1>Carvel Far Rockaway</h1>
-                <p class="subtitle">Innovation Through Technology</p>
-                <a href="#chat" class="hero-cta">Try AI Chat Now</a>
+      <section id="home" class="hero-section">
+        <div class="hero-content">
+          <h1>Carvel Far Rockaway</h1>
+          <p class="subtitle">透過科技創新</p>
+          <a href="#chat" class="hero-cta">立即試用 AI 聊天</a>
+        </div>
+      </section>
+
+      <section id="chat" class="chat-section">
+        <div class="chat-container">
+          <div class="chat-header">
+            <h3>AI 助理</h3>
+            <div class="membership-status">
+              <!-- 會員狀態將在此顯示 -->
             </div>
-        </section>
-
-        <section id="chat" class="chat-section">
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h3>AI Assistant</h3>
-                    <div class="membership-status">
-                        <!-- Membership status will be displayed here -->
-                    </div>
-                </div>
-                <div class="chat-messages" id="chatMessages">
-                    <!-- Messages will be inserted here -->
-                    <div class="message ai-message">
-                        Hello! I'm your AI assistant. How can I help you today?
-                    </div>
-                </div>
-                <div class="chat-input-container">
-                    <textarea id="userInput" placeholder="Type your message here..."></textarea>
-                    <div class="input-buttons">
-                        <button id="recordButton" class="record-button">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        <button id="sendButton" class="send-button">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="premium-overlay" style="display: none;">
-                    <div class="premium-message">
-                        <h3>Premium Feature</h3>
-                        <p>This feature is available to premium members only.</p>
-                        <a href="register.html" class="cta-button">Become a Member</a>
-                    </div>
-                </div>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <!-- 訊息將在此插入 -->
+            <div class="message ai-message">
+              您好！我是您的 AI 助理。今天有什麼可以幫助您的嗎？
             </div>
-        </section>
-
-        <section id="about" class="about-section">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <p>Welcome to my personal space on the web. I'm passionate about technology and innovation.</p>
+          </div>
+          <div class="chat-input-container">
+            <textarea
+              id="userInput"
+              placeholder="在此輸入您的訊息..."
+            ></textarea>
+            <div class="input-buttons">
+              <button id="recordButton" class="record-button">
+                <i class="fas fa-microphone"></i>
+              </button>
+              <button id="sendButton" class="send-button">
+                <i class="fas fa-paper-plane"></i>
+              </button>
             </div>
-        </section>
-
-        <section id="members-only" class="members-section">
-            <h2>Membership Plans</h2>
-            <div class="members-content">
-                <!-- Basic Plan -->
-                <div class="membership-card">
-                    <div class="card-header">
-                        <h3 class="membership-type">Basic</h3>
-                        <div class="membership-price">
-                            $9.99<span>/month</span>
-                        </div>
-                    </div>
-                    <ul class="features-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Basic AI Chat Access
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            5 Voice-to-Text Conversions
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Community Support
-                        </li>
-                    </ul>
-                    <a href="register.html" class="cta-button">Get Started</a>
-                </div>
-
-                <!-- Pro Plan -->
-                <div class="membership-card">
-                    <div class="premium-badge">Most Popular</div>
-                    <div class="card-header">
-                        <h3 class="membership-type">Pro</h3>
-                        <div class="membership-price">
-                            $19.99<span>/month</span>
-                        </div>
-                    </div>
-                    <ul class="features-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Unlimited AI Chat Access
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            20 Voice-to-Text Conversions
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Priority Support
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Custom AI Training
-                        </li>
-                    </ul>
-                    <a href="register.html" class="cta-button">Upgrade to Pro</a>
-                </div>
-
-                <!-- Premium Plan -->
-                <div class="membership-card">
-                    <div class="card-header">
-                        <h3 class="membership-type">Enterprise</h3>
-                        <div class="membership-price">
-                            $49.99<span>/month</span>
-                        </div>
-                    </div>
-                    <ul class="features-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Unlimited Everything
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Advanced AI Features
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            24/7 Premium Support
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            Custom Solutions
-                        </li>
-                    </ul>
-                    <a href="register.html" class="cta-button">Contact Sales</a>
-                </div>
+          </div>
+          <div class="premium-overlay" style="display: none">
+            <div class="premium-message">
+              <h3>高級功能</h3>
+              <p>此功能僅限高級會員使用。</p>
+              <a href="register.html" class="cta-button">成為會員</a>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <!-- Membership Benefits -->
-            <div class="membership-benefits">
-                <div class="benefit-item">
-                    <i class="fas fa-robot benefit-icon"></i>
-                    <h4>Advanced AI</h4>
-                    <p>Access cutting-edge AI technology for your needs</p>
-                </div>
-                <div class="benefit-item">
-                    <i class="fas fa-microphone benefit-icon"></i>
-                    <h4>Voice Recognition</h4>
-                    <p>Convert speech to text with high accuracy</p>
-                </div>
-                <div class="benefit-item">
-                    <i class="fas fa-clock benefit-icon"></i>
-                    <h4>24/7 Access</h4>
-                    <p>Use our services anytime, anywhere</p>
-                </div>
-                <div class="benefit-item">
-                    <i class="fas fa-shield-alt benefit-icon"></i>
-                    <h4>Secure Platform</h4>
-                    <p>Your data is protected with enterprise-grade security</p>
-                </div>
-            </div>
+      <section id="about" class="about-section">
+        <h2>關於我</h2>
+        <div class="about-content">
+          <p>歡迎來到我的個人網站。我熱衷於科技和創新。</p>
+        </div>
+      </section>
 
-            <!-- Stats Section -->
-            <div class="stats-container">
-                <div class="stat-item">
-                    <div class="stat-number">10K+</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">1M+</div>
-                    <div class="stat-label">AI Conversations</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Uptime</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Support</div>
-                </div>
+      <section id="members-only" class="members-section">
+        <h2>會員方案</h2>
+        <div class="members-content">
+          <!-- 基本方案 -->
+          <div class="membership-card">
+            <div class="card-header">
+              <h3 class="membership-type">基本版</h3>
+              <div class="membership-price">$9.99<span>/月</span></div>
             </div>
-        </section>
+            <ul class="features-list">
+              <li>
+                <i class="fas fa-check-circle"></i>
+                基本 AI 聊天功能
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                5 次語音轉文字
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                社群支援
+              </li>
+            </ul>
+            <a href="register.html" class="cta-button">開始使用</a>
+          </div>
+
+          <!-- 專業方案 -->
+          <div class="membership-card">
+            <div class="premium-badge">最受歡迎</div>
+            <div class="card-header">
+              <h3 class="membership-type">專業版</h3>
+              <div class="membership-price">$19.99<span>/月</span></div>
+            </div>
+            <ul class="features-list">
+              <li>
+                <i class="fas fa-check-circle"></i>
+                無限制 AI 聊天
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                20 次語音轉文字
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                優先支援
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                自訂 AI 訓練
+              </li>
+            </ul>
+            <a href="register.html" class="cta-button">升級至專業版</a>
+          </div>
+
+          <!-- 企業方案 -->
+          <div class="membership-card">
+            <div class="card-header">
+              <h3 class="membership-type">企業版</h3>
+              <div class="membership-price">$49.99<span>/月</span></div>
+            </div>
+            <ul class="features-list">
+              <li>
+                <i class="fas fa-check-circle"></i>
+                無限制所有功能
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                進階 AI 功能
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                24/7 高級支援
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i>
+                客製化解決方案
+              </li>
+            </ul>
+            <a href="register.html" class="cta-button">聯繫銷售</a>
+          </div>
+        </div>
+
+        <!-- 會員優勢 -->
+        <div class="membership-benefits">
+          <div class="benefit-item">
+            <i class="fas fa-robot benefit-icon"></i>
+            <h4>進階 AI</h4>
+            <p>獲得最先進的 AI 技術支援</p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-microphone benefit-icon"></i>
+            <h4>語音識別</h4>
+            <p>高精度的語音轉文字功能</p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-clock benefit-icon"></i>
+            <h4>24/7 存取</h4>
+            <p>隨時隨地使用我們的服務</p>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-shield-alt benefit-icon"></i>
+            <h4>安全平台</h4>
+            <p>企業級安全保護您的資料</p>
+          </div>
+        </div>
+
+        <!-- 統計數據區塊 -->
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">活躍用戶</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1M+</div>
+            <div class="stat-label">AI 對話</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">系統正常運行</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">技術支援</div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
-        <p>&copy; 2024 Carvel Far Rockaway. All rights reserved.</p>
+      <p>&copy; 2024 Carvel Far Rockaway. 版權所有。</p>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@google/generative-ai"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.run/@google/genai"
+        }
+      }
+    </script>
+    <script type="module">
+      import { GoogleGenAI } from "@google/genai";
+      window.GoogleGenAI = GoogleGenAI;
+      console.log("✅ GoogleGenAI 已載入並設為全域變數");
+    </script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
-    <script type="module" src="js/gemini-chat.js"></script>
-    <script type="module" src="js/chat.js"></script>
-</body>
-</html> 
+    <script src="js/gemini-chat.js"></script>
+    <script src="js/chat.js"></script>
+  </body>
+</html>

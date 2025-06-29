@@ -1,63 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Carvel Far Rockaway</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登入 - Carvel Far Rockaway</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="auth-container">
-        <div class="auth-box">
-            <h2>Welcome Back</h2>
-            <p class="auth-subtitle">Login to access your account</p>
-            
-            <form id="loginForm" class="auth-form">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
+      <div class="auth-box">
+        <h2>歡迎回來</h2>
+        <p class="auth-subtitle">登入您的帳戶</p>
 
-                <div class="form-group remember-forgot">
-                    <label class="remember">
-                        <input type="checkbox" id="remember">
-                        Remember me
-                    </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">電子郵件</label>
+            <input type="email" id="email" required />
+          </div>
 
-                <button type="submit" class="auth-button">Login</button>
-                
-                <div class="social-login">
-                    <p>Or login with</p>
-                    <div class="social-buttons">
-                        <button type="button" class="social-button google">
-                            <i class="fab fa-google"></i>
-                        </button>
-                        <button type="button" class="social-button facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+          <div class="form-group">
+            <label for="password">密碼</label>
+            <input type="password" id="password" required />
+          </div>
 
-            <p class="auth-redirect">
-                Don't have an account? <a href="register.html">Sign up</a>
-            </p>
-        </div>
+          <div class="form-group remember-forgot">
+            <label class="remember">
+              <input type="checkbox" id="remember" />
+              記住我
+            </label>
+            <a href="#" class="forgot-password">忘記密碼？</a>
+          </div>
+
+          <button type="submit" class="auth-button">登入</button>
+
+          <div class="social-login">
+            <p>或使用以下方式登入</p>
+            <div class="social-buttons">
+              <button type="button" class="social-button google">
+                <i class="fab fa-google"></i>
+              </button>
+              <button type="button" class="social-button facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <p class="auth-redirect">
+          還沒有帳戶？ <a href="register.html">立即註冊</a>
+        </p>
+      </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
-</body>
-</html> 
+  </body>
+</html>
