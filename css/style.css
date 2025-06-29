@@ -551,4 +551,49 @@ body {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
+}
+
+/* Chat Loading Indicator */
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    justify-content: center;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    animation: typing 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes typing {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.message.error {
+    background-color: #fff3f3;
+    color: #dc3545;
+    border-left: 4px solid #dc3545;
 } 
