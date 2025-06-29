@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carvel Far Rockaway - Personal Website">
+    <title>Carvel Far Rockaway</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">CFR</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#chat">AI Chat</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="auth-nav">
+                    <div class="user-profile" style="display: none;">
+                        <!-- User profile will be inserted here when logged in -->
+                    </div>
+                    <div class="auth-buttons">
+                        <a href="login.html" class="auth-button login">Login</a>
+                        <a href="register.html" class="auth-button register">Register</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1>Carvel Far Rockaway</h1>
+                <p class="subtitle">Innovation Through Technology</p>
+                <a href="#chat" class="hero-cta">Try AI Chat Now</a>
+            </div>
+        </section>
+
+        <section id="chat" class="chat-section">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3>AI Assistant</h3>
+                    <div class="membership-status">
+                        <!-- Membership status will be displayed here -->
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be inserted here -->
+                    <div class="message ai-message">
+                        Hello! I'm your AI assistant. How can I help you today?
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <textarea id="userInput" placeholder="Type your message here..."></textarea>
+                    <div class="input-buttons">
+                        <button id="recordButton" class="record-button">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button id="sendButton" class="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="premium-overlay" style="display: none;">
+                    <div class="premium-message">
+                        <h3>Premium Feature</h3>
+                        <p>This feature is available to premium members only.</p>
+                        <a href="register.html" class="cta-button">Become a Member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>Welcome to my personal space on the web. I'm passionate about technology and innovation.</p>
+            </div>
+        </section>
+
+        <section id="members-only" class="members-section">
+            <h2>Membership Plans</h2>
+            <div class="members-content">
+                <!-- Basic Plan -->
+                <div class="membership-card">
+                    <div class="card-header">
+                        <h3 class="membership-type">Basic</h3>
+                        <div class="membership-price">
+                            $9.99<span>/month</span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Basic AI Chat Access
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            5 Voice-to-Text Conversions
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Community Support
+                        </li>
+                    </ul>
+                    <a href="register.html" class="cta-button">Get Started</a>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="membership-card">
+                    <div class="premium-badge">Most Popular</div>
+                    <div class="card-header">
+                        <h3 class="membership-type">Pro</h3>
+                        <div class="membership-price">
+                            $19.99<span>/month</span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Unlimited AI Chat Access
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            20 Voice-to-Text Conversions
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Priority Support
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Custom AI Training
+                        </li>
+                    </ul>
+                    <a href="register.html" class="cta-button">Upgrade to Pro</a>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="membership-card">
+                    <div class="card-header">
+                        <h3 class="membership-type">Enterprise</h3>
+                        <div class="membership-price">
+                            $49.99<span>/month</span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Unlimited Everything
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Advanced AI Features
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            24/7 Premium Support
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Custom Solutions
+                        </li>
+                    </ul>
+                    <a href="register.html" class="cta-button">Contact Sales</a>
+                </div>
+            </div>
+
+            <!-- Membership Benefits -->
+            <div class="membership-benefits">
+                <div class="benefit-item">
+                    <i class="fas fa-robot benefit-icon"></i>
+                    <h4>Advanced AI</h4>
+                    <p>Access cutting-edge AI technology for your needs</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-microphone benefit-icon"></i>
+                    <h4>Voice Recognition</h4>
+                    <p>Convert speech to text with high accuracy</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-clock benefit-icon"></i>
+                    <h4>24/7 Access</h4>
+                    <p>Use our services anytime, anywhere</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-shield-alt benefit-icon"></i>
+                    <h4>Secure Platform</h4>
+                    <p>Your data is protected with enterprise-grade security</p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">AI Conversations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Carvel Far Rockaway. All rights reserved.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+</html> 
