@@ -55,56 +55,177 @@ class GeminiChat {
     }
   }
 
-  async sendMessage(message, isVoice) {
+  async analyzeFileData(data, fileType) {
     try {
-      let prompt = message;
-
-      if (isVoice) {
-        prompt =
-          "這是一個語音轉文字的訊息: " +
-          message +
-          "，請提供自然且對話式的回應。";
-      }
-
-      // 加入聊天記錄
-      this.chatHistory.push({
-        role: "user",
-        content: message,
-      });
-
-      // 使用最新的 API 調用方式
+      const analysisPrompt = this.generateAnalysisPrompt(data, fileType);
       const response = await this.ai.models.generateContent({
         model: "gemini-2.5-flash",
-        contents: prompt,
+        contents: analysisPrompt,
       });
 
-      const responseText = response.text;
-
-      // 加入 AI 回應到記錄
-      this.chatHistory.push({
-        role: "assistant",
-        content: responseText,
-      });
-
-      return responseText;
+      return response.text;
     } catch (error) {
-      console.error("Gemini聊天錯誤:", error);
+      console.error("AI分析錯誤:", error);
+      throw new Error("AI分析失敗: " + error.message);
+    }
+  }
 
-      // 處理各種錯誤情況
-      if (
-        error.message.includes("API_KEY_INVALID") ||
-        error.message.includes("API key")
-      ) {
-        throw new Error("API金鑰無效，請檢查您的金鑰設定");
+  generateAnalysisPrompt(data, fileType) {
+    const headers = Object.keys(data[0]);
+    const totalRows = data.length;
+    const sampleSize = Math.min(5, totalRows);
+    const sampleData = data.slice(0, sampleSize);
+
+    // 計算每個欄位的基本統計信息
+    const columnStats = this.calculateColumnStats(data, headers);
+
+    // 生成詳細的提示文本
+    let prompt = `請分析這份${fileType.toUpperCase()}數據文件，並提供詳細的見解。
+
+文件概況：
+- 總行數：${totalRows}
+- 欄位數：${headers.length}
+- 欄位名稱：${headers.join(", ")}
+
+數據統計：
+${this.formatColumnStats(columnStats)}
+
+數據預覽（前${sampleSize}行）：
+${this.formatSampleData(sampleData)}
+
+請提供以下分析：
+1. 這份數據的主要內容和用途是什麼？
+2. 數據的主要特徵和模式是什麼？
+3. 有哪些重要的觀察發現？
+4. 數據品質如何（完整性、一致性等）？
+5. 各欄位之間可能存在什麼關聯？
+6. 這些數據可能適合用於什麼分析或應用？
+
+請用繁體中文回答，並盡可能提供具體的見解。如果發現任何異常或特殊模式，也請指出。`;
+
+    return prompt;
+  }
+
+  calculateColumnStats(data, headers) {
+    const stats = {};
+
+    headers.forEach((header) => {
+      const values = data
+        .map((row) => row[header])
+        .filter((val) => val !== undefined && val !== null && val !== "");
+
+      stats[header] = {
+        type: this.getColumnType(values),
+        uniqueCount: new Set(values).size,
+        nonEmptyCount: values.length,
+        emptyCount: data.length - values.length,
+      };
+
+      // 根據數據類型計算額外統計
+      if (stats[header].type === "number") {
+        const numbers = values.map((v) => Number(v)).filter((n) => !isNaN(n));
+        if (numbers.length > 0) {
+          stats[header].min = Math.min(...numbers);
+          stats[header].max = Math.max(...numbers);
+          stats[header].average =
+            numbers.reduce((a, b) => a + b, 0) / numbers.length;
+        }
+      } else if (stats[header].type === "date") {
+        const dates = values.map((v) => new Date(v)).filter((d) => !isNaN(d));
+        if (dates.length > 0) {
+          stats[header].earliest = new Date(Math.min(...dates));
+          stats[header].latest = new Date(Math.max(...dates));
+        }
       }
-      if (error.message.includes("quota") || error.message.includes("limit")) {
-        throw new Error("API配額已用盡，請稍後再試");
+    });
+
+    return stats;
+  }
+
+  getColumnType(values) {
+    if (values.length === 0) return "unknown";
+
+    const sample = values[0];
+    if (!isNaN(Date.parse(sample))) {
+      // 檢查是否所有值都是有效日期
+      const allDates = values.every((v) => !isNaN(Date.parse(v)));
+      if (allDates) return "date";
+    }
+
+    if (!isNaN(Number(sample))) {
+      // 檢查是否所有值都是數字
+      const allNumbers = values.every((v) => !isNaN(Number(v)));
+      if (allNumbers) return "number";
+    }
+
+    return "text";
+  }
+
+  formatColumnStats(stats) {
+    let result = "";
+    for (const [header, stat] of Object.entries(stats)) {
+      result += `\n${header}：
+- 數據類型：${this.translateType(stat.type)}
+- 唯一值數量：${stat.uniqueCount}
+- 非空值數量：${stat.nonEmptyCount}
+- 空值數量：${stat.emptyCount}`;
+
+      if (stat.type === "number") {
+        result += `
+- 最小值：${stat.min}
+- 最大值：${stat.max}
+- 平均值：${stat.average.toFixed(2)}`;
+      } else if (stat.type === "date") {
+        result += `
+- 最早日期：${stat.earliest.toLocaleDateString()}
+- 最晚日期：${stat.latest.toLocaleDateString()}`;
       }
-      if (error.message.includes("GEMINI_API_KEY")) {
-        throw new Error("請設定 GEMINI_API_KEY");
+    }
+    return result;
+  }
+
+  formatSampleData(sampleData) {
+    return sampleData
+      .map((row, index) => {
+        const values = Object.entries(row)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join(", ");
+        return `行 ${index + 1}: ${values}`;
+      })
+      .join("\n");
+  }
+
+  translateType(type) {
+    const types = {
+      number: "數字",
+      text: "文本",
+      date: "日期",
+      unknown: "未知",
+    };
+    return types[type] || type;
+  }
+
+  async sendMessage(message, fileData = null) {
+    try {
+      let response;
+
+      if (fileData && typeof fileData === "object") {
+        // 如果是文件數據，使用專門的分析方法
+        const fileType = fileData.fileType || "unknown";
+        response = await this.analyzeFileData(fileData.data, fileType);
+      } else {
+        // 一般對話
+        const result = await this.ai.models.generateContent({
+          model: "gemini-2.5-flash",
+          contents: message,
+        });
+        response = result.text;
       }
 
-      throw new Error("無法獲得AI回應：" + (error.message || "未知錯誤"));
+      return response;
+    } catch (error) {
+      console.error("Gemini API 錯誤:", error);
+      throw new Error("無法獲得 AI 回應: " + error.message);
     }
   }
 

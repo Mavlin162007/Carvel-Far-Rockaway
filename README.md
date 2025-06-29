@@ -1,137 +1,201 @@
-# Carvel Far Rockaway 個人網站
+# Carvel Far Rockaway - AI 智能數據分析平台
 
-這是一個結合了 AI 聊天功能的個人網站，使用 Google Gemini API 提供智能對話服務。
+這是一個結合 Google Gemini AI 的智能數據分析平台，支援 Excel/CSV 文件分析、語音識別和自然語言對話。
 
-## 功能特色
+## 🌟 主要功能
 
-- ✨ 現代化響應式設計
-- 🤖 Gemini AI 聊天助理
-- 🎤 語音轉文字功能
-- 👤 簡化的用戶認證系統
-- 📱 完全響應式設計
+### 1. AI 聊天功能
 
-## 已修復問題
+- 使用 Google Gemini 2.5 Flash 模型
+- 支援自然語言對話
+- 智能上下文理解
+- 繁體中文介面
 
-1. **移除 Firebase 依賴** - 專案現在只依賴 Gemini API
-2. **修復 Gemini API 整合** - 使用最新的官方 `@google/genai` API
-3. **實現語音識別** - 使用 Web Speech API 進行語音轉文字
-4. **簡化認證系統** - 使用 localStorage 進行基本認證
-5. **中文本地化** - 將介面翻譯為繁體中文
-6. **修復瀏覽器兼容性** - 解決 ES6 模組載入問題
-7. **升級至最新 API** - 使用 `gemini-2.5-flash` 模型和新的 API 結構
+### 2. 數據分析功能
 
-## 快速開始
+- 支援 Excel (.xlsx/.xls) 和 CSV 文件
+- 自動數據類型識別
+- 智能數據統計和分析
+- 視覺化數據預覽
+- AI 驅動的數據洞察
 
-### 1. 設置環境變數（推薦）
+### 3. 語音功能
 
-創建或編輯 `.env` 文件並添加您的 Gemini API 金鑰：
+- 語音轉文字
+- 即時語音識別
+- 多語言支援
 
-\`\`\`bash
+### 4. 用戶介面
 
-# .env 文件
+- 響應式設計
+- 現代化 UI/UX
+- 暗色/亮色主題
+- 直觀的文件上傳介面
 
-GEMINI_API_KEY=your_actual_gemini_api_key_here
-\`\`\`
+## 🚀 快速開始
 
-### 2. 瀏覽器端配置（僅限開發測試）
+### 環境要求
 
-如果直接在瀏覽器中使用，可以編輯 `js/config.js` 文件：
+- Node.js 18.0 或以上
+- npm 9.0 或以上
+- 現代瀏覽器（Chrome、Firefox、Safari、Edge 等）
 
-\`\`\`javascript
-// 取消註解並設置您的 API 金鑰
-window.process.env.GEMINI_API_KEY = 'your_actual_gemini_api_key_here';
-\`\`\`
+### 安裝步驟
 
-**⚠️ 安全提醒：**
+1. 克隆專案
 
-- 不要在生產環境中在客戶端暴露 API 金鑰
-- 建議通過後端代理 API 請求
+```bash
+git clone https://github.com/your-username/Carvel-Far-Rockaway.git
+cd Carvel-Far-Rockaway
+```
 
-### 3. 啟動伺服器（可選）
+2. 安裝依賴
 
-如果您想使用 Node.js 伺服器：
+```bash
+npm install
+```
 
-\`\`\`bash
+3. 設置環境變數
 
-# 如果遇到 npm 權限問題，可以嘗試：
+```bash
+cp env.example .env
+```
 
-npm cache clean --force
+編輯 .env 文件，設置您的 Gemini API 金鑰：
 
-# 或直接使用 yarn：
+```
+GEMINI_API_KEY=your_api_key_here
+```
 
-yarn install
-yarn start
+4. 啟動服務器
 
-# 或者直接運行：
+```bash
+npm start
+```
 
-node server.js
-\`\`\`
+5. 訪問應用
+   打開瀏覽器訪問：http://localhost:3000
 
-### 4. 直接使用
+## 📊 數據分析功能使用指南
 
-您也可以直接在瀏覽器中打開 `index.html` 文件來使用網站。
+### Excel/CSV 文件分析
 
-## 獲取 Gemini API 金鑰
+1. 點擊「上傳 Excel/CSV」按鈕
+2. 選擇要分析的文件
+3. 等待系統處理和分析
+4. 查看自動生成的分析報告
 
-1. 前往 [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. 登入您的 Google 帳戶
-3. 創建新的 API 金鑰
-4. 將金鑰複製到配置文件中
+### 分析報告包含：
 
-## 使用說明
+- 文件概況（行數、欄位數等）
+- 數據統計（類型、範圍、分布等）
+- 數據預覽
+- AI 深度分析
+- 數據品質評估
+- 應用建議
 
-### AI 聊天功能
+## 🎯 API 使用說明
 
-- 在聊天框中輸入訊息並按下發送按鈕
-- 點擊麥克風按鈕進行語音輸入（需要瀏覽器支援）
-- AI 將使用 Gemini 模型回應您的問題
+### Gemini API 配置
 
-### 用戶認證
+```javascript
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+```
 
-- 簡化的登入/註冊系統
-- 資料暫存在瀏覽器的 localStorage 中
-- 支援基本的表單驗證
+### 文件處理 API
 
-### 語音功能
+```javascript
+// Excel 文件處理
+const workbook = XLSX.read(data, { type: "array" });
+const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-- 使用瀏覽器內建的 Web Speech API
-- 支援繁體中文語音識別
-- 需要 HTTPS 或 localhost 環境
+// CSV 文件處理
+const csvData = XLSX.read(text, { type: "string" });
+```
 
-## 瀏覽器支援
+## 🛠️ 技術棧
 
-- Chrome/Edge（推薦）- 完整支援所有功能
-- Firefox - 支援大部分功能（語音功能有限）
-- Safari - 基本功能支援
+- 前端：
 
-## 技術棧
+  - HTML5/CSS3
+  - Vanilla JavaScript
+  - Web Speech API
+  - SheetJS (XLSX)
 
-- **前端**: HTML5, CSS3, Vanilla JavaScript
-- **AI**: Google Gemini API (`@google/genai` v0.2.0+)
-- **語音**: Web Speech API
-- **後端**: Node.js + Express（可選）
-- **樣式**: 自訂 CSS + Font Awesome
-- **模型**: Gemini 2.5 Flash（最新版本）
+- 後端：
 
-## 故障排除
+  - Node.js
+  - Express.js
+  - Google Gemini API
 
-### API 金鑰錯誤
+- 工具和庫：
+  - XLSX.js (Excel/CSV 處理)
+  - Font Awesome (圖標)
+  - Google Fonts
 
-- 確認 API 金鑰是否正確設置
-- 檢查 API 金鑰是否有效且有足夠配額
+## 📱 響應式設計
 
-### 語音功能無法使用
+- 支援所有主流設備
+- 自適應布局
+- 觸摸友好界面
+- 優化的移動端體驗
 
-- 確保瀏覽器支援 Web Speech API
-- 檢查麥克風權限是否已授予
-- 嘗試在 HTTPS 環境下使用
+## 🔒 安全性
 
-### npm 安裝問題
+- API 金鑰安全存儲
+- 環境變數保護
+- 文件上傳驗證
+- 錯誤處理機制
 
-- 嘗試清理 npm 快取：`npm cache clean --force`
-- 或使用 yarn 替代：`yarn install`
-- 或直接在瀏覽器中打開 `index.html`
+## 🔄 更新日誌
 
-## 授權
+### 最新版本
 
-本專案僅供學習和個人使用。請確保遵守 Google Gemini API 的使用條款。
+- 添加 CSV 文件支援
+- 增強數據分析功能
+- 優化 AI 分析報告
+- 改進用戶界面
+- 添加數據統計功能
+
+## 📝 開發計劃
+
+- [ ] 添加數據可視化圖表
+- [ ] 支援更多文件格式
+- [ ] 批量文件處理
+- [ ] 數據導出功能
+- [ ] 自定義分析模板
+
+## 🤝 貢獻指南
+
+1. Fork 本專案
+2. 創建特性分支
+3. 提交更改
+4. 推送到分支
+5. 創建 Pull Request
+
+## 📄 授權協議
+
+本專案採用 MIT 授權協議 - 查看 [LICENSE](LICENSE) 文件了解更多詳情。
+
+## 👥 作者
+
+- 您的名字 - [您的郵箱]
+
+## 🙏 致謝
+
+- Google Gemini API
+- SheetJS 團隊
+- 所有貢獻者
+
+## 💡 問題反饋
+
+如果您發現任何問題或有改進建議，請：
+
+1. 檢查 Issues 是否已存在相關問題
+2. 創建新的 Issue 並詳細描述問題
+3. 提供復現步驟和相關信息
+
+---
+
+Made with ❤️ by [Your Name]

@@ -15,6 +15,61 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <style>
+      .excel-preview {
+        background: #f5f5f5;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .excel-preview table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .excel-preview th,
+      .excel-preview td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      .excel-preview th {
+        background-color: #4a90e2;
+        color: white;
+      }
+      .excel-preview tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      .file-upload {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      .file-upload input[type="file"] {
+        display: none;
+      }
+      .file-upload label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 8px 15px;
+        background: #4a90e2;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .file-upload label:hover {
+        background: #357abd;
+      }
+      .file-name {
+        color: #666;
+        font-size: 0.9em;
+      }
+    </style>
   </head>
   <body>
     <header class="header">
@@ -63,6 +118,14 @@
             </div>
           </div>
           <div class="chat-input-container">
+            <div class="file-upload">
+              <label for="excelFile">
+                <i class="fas fa-file-excel"></i>
+                上傳 Excel/CSV
+              </label>
+              <input type="file" id="excelFile" accept=".xlsx,.xls,.csv" />
+              <span class="file-name" id="fileName"></span>
+            </div>
             <textarea
               id="userInput"
               placeholder="在此輸入您的訊息..."
